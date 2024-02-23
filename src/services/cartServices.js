@@ -5,7 +5,7 @@ import { usersRepository } from "../repository/usersRepository.js"
 import { productRepository } from "../repository/productRepository.js"
 import { cartDao } from "../DAO/cartDao.js"
 import { ticketServices } from '../services/ticketServices.js'
-import { emailService } from '../services/emailServices.js'
+import { emailService } from '../services/email/emailServices.js'
 
 class CartServices {
     async getAllCarts(){
