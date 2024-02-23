@@ -1,7 +1,7 @@
 import { usersServices } from "../services/usersServices.js";
 import { logger } from "../utils/logger.js";
 import { appendJwtAsCookie } from "./authentication.js";
-import { adminsOnly, usersOnly } from '../middlewares/authorizationUserAdmin.js'
+import { adminsOnly} from '../middlewares/authorizationUserAdmin.js'
 
 
 export const registerUser = async (req, res, next) => {
@@ -20,7 +20,6 @@ export const getCurrentUser = async (req, res, next) => {
     logger.info('Entro a current')
     const user = await usersServices.getCurrentUser(req.user)
 
-    usersOnly,
     res.successfullGet(user)
 
   } catch (error) {
@@ -33,8 +32,6 @@ export const getAllUsers = async (req, res, next) => {
   try {
 
     const users = await usersServices.findAllUsers();
-  
-    adminsOnly,
 
     res.successfullGet(users);
      
