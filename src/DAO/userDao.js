@@ -27,32 +27,31 @@ class UserDao {
     };
 
     async findAllUsers() {
-      try {
-        return await usersManager.find({}, { password: 0 }).lean();
-      } catch (error) {
-        throw new AuthenticationError()
-      }
+      return await usersManager.find({}, { password: 0 }).lean();
     };
 
-    async resetPass(email, passUpd) {
-      try{
-        const userUpd = await usersManager.findOneAndUpdate(
-          { email },
-          { $set: { password: passUpd } },
-          { new: true }
-        ).lean()
-
-        return userUpd
-      }catch(error){
-        throw new AuthenticationError()
+    async findOne(email) {
+      const user = await usersManager.findOne({email});
+      if(!user){
+        throw new Error('El usuario no existe')
       }
 
+      return user
+    }
+
+    async findOneToken(filter) {
+      const user = await usersManager.findOne(filter).exec();
+      if(!user){
+        throw new Error('El usuario no existe')
+      }
+
+      return user
     }
 
     async readOne(criterio) {
       const result = await usersManager.findOne(criterio).lean()
-        if (!result) throw new Error('NOT FOUND')
-        return result
+
+      return result
     }
 }
 

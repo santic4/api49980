@@ -9,6 +9,8 @@ const schema = new Schema({
   email: { type: String, unique: true, required: true },
   age: { type: Number, required: true },
   password: { type: String, required: true },
+  resetPasswordToken: {type: String},
+  resetPasswordExpires: {type: Date},
   cart: { type: String, unique: true, defaul: '' },
   rol: { type: String, default: 'user' },
   orders: {

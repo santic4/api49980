@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
 //controllers
-import { registerUser, getCurrentUser, getAllUsers, resetPassword } from '../controllers/usersController.js'
+import { registerUser, getCurrentUser, getAllUsers, passwordforgot, passwordReset } from '../controllers/usersController.js'
 
 // passport
 import { passportAuth, passportLocalRegister } from '../middlewares/passport.js'
@@ -30,4 +30,10 @@ usersRouter.get('/',
     getAllUsers
 )
 
-usersRouter.put('/', resetPassword)
+usersRouter.post('/forgotPassword',
+    passwordforgot
+);
+
+usersRouter.post('/resetPassword/:token',
+    passwordReset
+);

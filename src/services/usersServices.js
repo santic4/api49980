@@ -2,30 +2,30 @@ import { hasheadasSonIguales, hashear } from '../utils/cryptografia.js'
 import { UserDTO } from '../dto/dto.js'
 import { usersRepository } from '../repository/usersRepository.js'
 import { AuthenticationError } from '../models/errors/authenticationError.js'
+import { JWT_PRIVATE_KEY } from '../config/config.js'
+import jwt from 'jsonwebtoken';
 
 class UsersServices {
     async createUser(userData){
         try {
+            //const username = 'santito'
+
+           // await usersRepository.findUserByUsername({username})
+
             userData.password = hashear(userData.password)
             const user = await usersRepository.createUser(userData)
-
             
             return user
         } catch (error) {
-            // throw new Error('Error al crear usuario', error)
             console.log(error)
+            throw new Error('Error al crear usuario', error)
         }
     }
 
     async getCurrentUser(userData){
-        try {
-            
-            const userDTO = new UserDTO(userData)
-            
-            return userDTO
-        } catch (error) {
-            console.log(error)
-        }
+        const userDTO = new UserDTO(userData)
+        
+        return userDTO
     }
 
     async findUserByUsername({username, password}){
@@ -60,18 +60,61 @@ class UsersServices {
         }
     }
 
+    async generateResetToken(email) {
 
-    async resetPass(email, pass) {
-        try{
-          const newPassword = hashear(pass)
+      const user = await usersRepository.findOne(email);
+      console.log(user,' pase aca')
 
-          const userUpd = await usersRepository.resetPass(email, newPassword)
+      const resetToken = jwt.sign({ email }, JWT_PRIVATE_KEY, { expiresIn: '1h' });
 
-          return userUpd
-        }catch(error){
-          throw new AuthenticationError()
+      user.resetPasswordToken = resetToken;
+      user.resetPasswordExpires = Date.now() + 3600000; // 1 hora en milisegundos
+
+      await user.save();
+
+      return resetToken;
+    }
+
+
+
+    async resetPassword(token, newPassword){
+        try {
+          const user = await usersRepository.findOnetoken({
+            resetPasswordToken: token,
+            resetPasswordExpires: { $gt: Date.now() }
+          });
+      
+          if (!user) {
+            return { error: 'Token no válido o expirado' };
+          }
+
+          console.log('NEW PASS', newPassword)
+          console.log(user,'useR PASSSSSSS')
+      
+          // Verificar que la nueva contraseña no sea igual a la anterior
+          const isSamePassword = await hasheadasSonIguales({
+            recibida: newPassword,
+            almacenada: user.password
+          });
+
+          if (isSamePassword) {
+            return { error: 'No puedes usar la misma contraseña anterior' };
+          }
+      
+          // Restablecer la contraseña y eliminar el token
+          user.password = await hashear(newPassword);
+          user.resetPasswordToken = undefined;
+          user.resetPasswordExpires = undefined;
+      
+          await user.save();
+      
+          return { message: 'Contraseña restablecida con éxito' };
+        } catch (error) {
+          console.error(error);
+          throw new Error('Error al actualizar contraseña', error)
         }
-      }
+    };
+    
 }
 
 export const usersServices = new UsersServices()

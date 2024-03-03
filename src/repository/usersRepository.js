@@ -14,10 +14,10 @@ class UsersRepository {
 
     async findUserByUsername({username}){
         try {
-
             const user = await userDao.findUserByUsername({ username })
 
             return user
+
         } catch (error) {
             throw new AuthenticationError()
         }
@@ -33,20 +33,31 @@ class UsersRepository {
         }
     }
 
-    async resetPass(email, passUpd) {
-        try{
-          const userUpd = await userDao.resetPass(email, passUpd)
+    async findOne(email) {
+        try {
+            return await userDao.findOne(email);
+        } catch (error) {
+            console.log(error, 'ERRRO DEFINITVO')
+            throw new AuthenticationError()
+        }
+    }
 
-          return userUpd
-        }catch(error){
-          throw new AuthenticationError()
+    async findOnetoken(filter) {
+        try {
+            return await userDao.findOneToken(filter);
+        } catch (error) {
+            throw new AuthenticationError()
         }
     }
 
     async readOne(criterio) {
-        const result = await userDao.readOne(criterio)
+        try {
+            const result = await userDao.readOne(criterio)
 
-        return result
+            return result
+        } catch (error) {
+            throw new AuthenticationError()
+        }
     }
 }
 
