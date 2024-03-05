@@ -11,7 +11,8 @@ const schemaProduct = new Schema ({
     status: { type: Boolean, default: true },
     stock: { type: Number, require: true },
     category: { type: String, require: true },
-    image: { type: String, default: '' }
+    image: { type: String, default: '' },
+    owner: { type: String, ref: 'users' }
 }, {
     strict: 'throw',
     versionKey: false,

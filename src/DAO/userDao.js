@@ -53,6 +53,21 @@ class UserDao {
 
       return result
     }
+
+    async userById(id){
+
+      const result = await usersManager.findOne({ _id: id }).lean()
+
+      return result
+    }
+
+    async changeRol(userId, newRol) {
+      const result = await usersManager.findByIdAndUpdate(userId, { rol: newRol }, { new: true }).lean()
+
+      console.log(result, 'RESULT')
+
+      return result
+    }
 }
 
 export const userDao = new UserDao()

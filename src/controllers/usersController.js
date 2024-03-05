@@ -79,3 +79,16 @@ export const passwordReset = async (req, res, next) => {
     next(error)
   }
 };
+
+export const changeUserRole= async(req, res, next)=> {
+  try {
+    const userId = req.params.uid;
+    const newRol = req.body.rol; // El nuevo rol, puede ser 'premium' o 'user'
+
+    const updatedUser = await usersServices.changeRol(userId, newRol);
+
+    res.json(updatedUser);
+  } catch (error) {
+    next(error)
+  }
+}

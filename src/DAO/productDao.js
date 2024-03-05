@@ -24,7 +24,10 @@ class ProductDao{
     
     }
 
-    async postProduct(newData){
+    async postProduct(userId, newData){
+
+        newData.owner = userId;
+
         const newProduct = await Product.create(newData);
 
         return newProduct

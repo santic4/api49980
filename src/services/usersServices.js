@@ -114,6 +114,16 @@ class UsersServices {
           throw new Error('Error al actualizar contraseña', error)
         }
     };
+
+    async changeRol(userId, newRol) {
+      if (newRol !== 'user' && newRol !== 'premium') {
+        throw new Error('El rol proporcionado no es válido');
+      }
+
+      const updatedUser = await usersRepository.changeRol(userId, newRol);
+
+      return updatedUser;
+    }
     
 }
 

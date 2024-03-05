@@ -5,7 +5,7 @@ const COOKIE_OPTS = { signed: true, maxAge: 1000 * 60 * 60, httpOnly: true }
 
 export async function registerUser(req, _username, _password, done) {
   try {
-    console.log('user', req.body)
+
     const user = await usersServices.createUser(req.body)
     console.log('ya casi termina', user)
     done(null, user)
@@ -16,7 +16,7 @@ export async function registerUser(req, _username, _password, done) {
 
 export async function loginUser(username, password, done){
   try {
-    console.log('entro a la funcion loginUser')
+    
     const user = await usersServices.findUserByUsername({ username, password })
     done(null, user)
   } catch (error) {

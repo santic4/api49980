@@ -45,7 +45,9 @@ export const postProduct = async (req, res, next) => {
   try {
      const newData = req.body;
 
-     const newProduct = await productServices.postProduct(newData)
+     const userPer = req.user
+
+     const newProduct = await productServices.postProduct(userPer ,newData)
 
      res.json(newProduct)
 
@@ -56,7 +58,7 @@ export const postProduct = async (req, res, next) => {
 
 export const updateProduct = async (req, res, next) => {
   try{
-      const updProduct = await productServices.updateProduct(req.params.pid, req.body)
+      const updProduct = await productServices.updateProduct(req.params.pid, req.body, req.user._id)
   
       res.json(updProduct)
 
@@ -67,7 +69,7 @@ export const updateProduct = async (req, res, next) => {
 
 export const deleteProduct = async (req, res, next) => {
   try{
-      const idProduct = await productServices.deleteProduct(req.params.pid)
+      const idProduct = await productServices.deleteProduct(req.params.pid, req.user._id)
       
       res.json(idProduct)
 

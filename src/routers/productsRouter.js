@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { deleteProduct, getAllProducts, getCategory, getProductId, postProduct, updateProduct } from '../controllers/productsController.js';
 import { generateUsersHandler } from '../controllers/mockingController.js'
 import { passportAuth } from '../middlewares/passport.js';
-import { adminsOnly } from '../middlewares/authorizationUserAdmin.js';
+import { premiumOnly } from '../middlewares/authorizationUserAdmin.js';
 
 export const productsRouter = Router()
 
@@ -23,21 +23,21 @@ productsRouter.get('/:pid',
 // POST /products/
 productsRouter.post('/',
     passportAuth,
-    adminsOnly,
+    premiumOnly,
     postProduct,
 )
 
 // PUT /products/:pid
 productsRouter.put('/:pid', 
     passportAuth,
-    adminsOnly,
+    premiumOnly,
     updateProduct
 )
 
 // DEL /products/:pid
 productsRouter.delete('/:pid', 
     passportAuth,
-    adminsOnly,
+    premiumOnly,
     deleteProduct
 )
 

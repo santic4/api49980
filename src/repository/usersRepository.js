@@ -23,6 +23,16 @@ class UsersRepository {
         }
     }
 
+    async findById(id) {
+        try {
+            const user = await userDao.userById(id)
+
+            return user
+        } catch (error) {
+            throw new AuthenticationError()
+        }
+    }
+
     async findAllUsers(){
         try {
             const user = await userDao.findAllUsers()
@@ -53,6 +63,16 @@ class UsersRepository {
     async readOne(criterio) {
         try {
             const result = await userDao.readOne(criterio)
+
+            return result
+        } catch (error) {
+            throw new AuthenticationError()
+        }
+    }
+
+    async changeRol(userId, newRol) {
+        try {
+            const result = await userDao.changeRol(userId, newRol)
 
             return result
         } catch (error) {

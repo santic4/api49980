@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
 //controllers
-import { registerUser, getCurrentUser, getAllUsers, passwordforgot, passwordReset } from '../controllers/usersController.js'
+import { registerUser, getCurrentUser, getAllUsers, passwordforgot, passwordReset, changeUserRole } from '../controllers/usersController.js'
 
 // passport
 import { passportAuth, passportLocalRegister } from '../middlewares/passport.js'
@@ -36,4 +36,8 @@ usersRouter.post('/forgotPassword',
 
 usersRouter.post('/resetPassword/:token',
     passwordReset
+);
+
+usersRouter.post('/premium/:uid',
+    changeUserRole
 );

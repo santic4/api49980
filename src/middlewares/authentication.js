@@ -24,7 +24,7 @@ passport.use('jwtAuth', new JwtStrategy({
     if (req?.signedCookies) {
       token = req.signedCookies['authorization']
     }
-    console.log('ENTRO A PASSPORT', token)
+    
     return token
   }]),
   secretOrKey: JWT_PRIVATE_KEY
