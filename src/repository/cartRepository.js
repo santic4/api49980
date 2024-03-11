@@ -25,8 +25,8 @@ class CartRepository {
         return cartUpd
     }
 
-    async postProductIntoCart(newData){
-        const cartUpd = await cartDao.postProductIntoCart(newData)
+    async postProductIntoCart(cid, pid, productExist){
+        const cartUpd = await cartDao.postProductIntoCart(cid, pid, productExist)
 
         return cartUpd
     }

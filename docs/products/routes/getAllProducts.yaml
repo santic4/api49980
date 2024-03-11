@@ -1,0 +1,11 @@
+paths:
+  /api/products:
+    get:
+      tags: 
+       - Products
+      summary: Get all products
+      responses:
+        "200":
+          description: Request successful, list of products obtained
+        "500":
+          description: Internal server error

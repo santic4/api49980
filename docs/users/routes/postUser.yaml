@@ -1,0 +1,22 @@
+paths:
+  /api/users:
+    post:
+      summary: Create new user
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/createUser'
+      responses:
+        "201":
+          description: User created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+        "500":
+          description: 'Internal Server Error'
+       

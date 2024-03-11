@@ -1,0 +1,69 @@
+paths:
+  /api/products/{id}:
+    get:
+      tags: 
+       - Products
+      summary: Get a product by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the product to be retrieved
+          schema:
+            $type: string
+      responses:
+        "200":
+          description: Request successful, product retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#components/schemas/Products'
+        "404":
+          description: Invalid data
+        "500":
+          description: Internal server error
+
+    put:
+      tags: 
+       - Products
+      summary: Update the searched product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/schemas/Products"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the product to be updated
+          schema:
+            $type: string
+      responses:
+        "200":
+          description: Request successful, product updated
+        "404":
+          description: Invalid data
+        "500":
+          description: Internal server error
+
+    delete:
+      tags: 
+       - Products
+      summary: Delete the searched product
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the product to be deleted
+          schema:
+            $type: string
+      responses:
+        "200":
+          description: Request successful, product deleted
+        "404":
+          description: Invalid data
+        "500":
+          description: Internal server error

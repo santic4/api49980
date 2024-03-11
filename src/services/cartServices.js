@@ -6,6 +6,7 @@ import { productRepository } from "../repository/productRepository.js"
 import { cartDao } from "../DAO/cartDao.js"
 import { ticketServices } from '../services/ticketServices.js'
 import { emailService } from '../services/email/emailServices.js'
+import { NotFoundError } from '../models/errors/notFoundError.js'
 
 class CartServices {
     async getAllCarts(){
@@ -31,13 +32,17 @@ class CartServices {
         if (isNaN(cantidadNumerica) || cantidadNumerica < 0) {
             throw new Error('La nueva cantidad debe ser un número válido y no puede ser negativa.');
         }
+        
+        const cart = await cartRepository.getCartId(cid);
 
-        const productoEnCarrito = carrito.carrito.find(item => item._id.toString() === pid);
+        console.log(cart, 'cart')
 
-        const carrito = await cartRepository.getCartId(cid);
+        const productoEnCarrito = cart.carrito.find(item => item.productID._id === pid);
+
+        console.log(productoEnCarrito, 'productoEnCarrito')
 
         if (!productoEnCarrito) {
-            throw new Error('El producto no existe en el carrito.');
+            throw new NotFoundError();
         }
 
         const cartUpd = await cartRepository.updateQuantityProductInCart(cid, pid, cantidadNumerica);
@@ -63,7 +68,9 @@ class CartServices {
             throw new Error('El producto buscado no existe')
         }
 
-        const updProd = await cartRepository.postProductIntoCart(productExist)
+        const updProd = await cartRepository.postProductIntoCart(cid, pid, productExist)
+
+        console.log(updProd, 'UPD PROD')
 
         return updProd
     }

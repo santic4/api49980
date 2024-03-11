@@ -1,4 +1,5 @@
 import { productDao } from "../DAO/productDao.js"
+import { DataInvalid } from '../models/errors/dataInvalid.js'
 
 class ProductRepository{
     async getAllProducts(filter, options){
@@ -34,7 +35,7 @@ class ProductRepository{
 
             return newProduct
         } catch (error) {
-            throw new Error('Data invalid.', error.message)
+            throw new DataInvalid()
         }
     }
 

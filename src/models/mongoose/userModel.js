@@ -11,7 +11,7 @@ const schema = new Schema({
   password: { type: String, required: true },
   resetPasswordToken: {type: String},
   resetPasswordExpires: {type: Date},
-  cart: { type: String, unique: true, defaul: '' },
+  cart: { type: String, default: '' },
   rol: { type: String, default: 'user' },
   orders: {
     type: [

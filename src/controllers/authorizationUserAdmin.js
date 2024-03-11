@@ -1,8 +1,9 @@
+import { PermissionsError } from "../models/errors/permissionsError.js";
+
 export async function authorizeRoles(req, res, next, allowedRoles) {
     if (!allowedRoles.includes(req.user['rol'])) {
-      return next(new Error('Not authorized'));
+      return next(new PermissionsError());
     }
-  
     next();
   }
   

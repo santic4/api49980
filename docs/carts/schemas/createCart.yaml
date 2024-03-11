@@ -1,0 +1,34 @@
+components: 
+  requestBody:
+    createCart:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                _id:
+                  type: string
+                  description: ID of the cart
+                carrito:
+                  type: array
+                  description: Array of products belonging to the cart
+                  items:
+                    type: object
+                    properties:
+                      pid:
+                        type: string
+                        format: uuid
+                        description: ID of the product
+                      quantity:
+                        type: integer
+                        minimum: 1
+                        description: Quantity of the product
+              required:
+                - carrito
+            example:
+              _id: asd12easda
+              carrito:
+                - pid: ced276fa-a63a-4ccd-8252-2c33a2346d31
+                  quantity: 2
+                - pid: ced276fa-a63a-4ccd-8252-2c33a2346d31
+                  quantity: 5

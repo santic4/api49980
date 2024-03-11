@@ -1,5 +1,7 @@
+import { PermissionsError } from "../models/errors/permissionsError.js";
 import { productRepository } from "../repository/productRepository.js";
 import { usersRepository } from "../repository/usersRepository.js";
+import { NotFoundError } from '../models/errors/notFoundError.js'
 
 class ProductServices{
     async getAllProducts(filter, options){
@@ -29,6 +31,10 @@ class ProductServices{
     async getProductId(pid){
         const product = await productRepository.getProductId(pid)
 
+        if(!product){
+            throw new NotFoundError()
+        }
+
         return product
     }
 
@@ -39,7 +45,7 @@ class ProductServices{
         }
 
         if (user.rol !== 'premium' && user.rol !== 'admin') {
-            return res.status(403).json({ message: 'No tienes permisos para crear productos.' });
+            throw new PermissionsError();
         }
 
         const userId = user._id
@@ -65,7 +71,7 @@ class ProductServices{
         const product = await productRepository.getProductId(pid);
 
         if (!product) {
-            throw new Error(`El producto con ID ${pid} no se encontró`);
+            throw new NotFoundError();
         }
   
         // Verificar si se intenta modificar el código del producto

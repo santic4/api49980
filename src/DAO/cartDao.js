@@ -38,7 +38,9 @@ class CartDao {
       try {
         const carrito = await Carrito.findById(cid);
 
-        await carrito.upsertProd(pid, cant);
+        console.log(cantidadNumerica, 'cantidadNumerica')
+
+        await carrito.upsertProd(pid, cantidadNumerica);
         
         return carrito
       } catch (err) {
@@ -46,8 +48,10 @@ class CartDao {
       }
     }
 
-    async postProductIntoCart(newData){
-      if (newData.length > 0) {
+    async postProductIntoCart(cid, pid, productExist){
+      console.log(cid, pid,'NEW DATA', productExist)
+      if (productExist.length > 0) {
+        
         const updProduct = await Carrito.findByIdAndUpdate(
           cid,
           { $inc: { "carrito.$[elem].cant": 1 }},

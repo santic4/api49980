@@ -4,38 +4,38 @@ import { sessionAuth } from '../middlewares/passport.js'
 
 export const carritoRouter = Router()
 
-// GET /carrito/allCarts
+// GET /carts/allCarts
 carritoRouter.get('/allCarts',
     sessionAuth,
     getAllCarts
 );
 
-// GET /carrito/:pid/
+// GET /carts/:pid/
 carritoRouter.get('/:cid',
     getCartId
 );
 
-// POST /carrito/
+// POST /carts/
 carritoRouter.post('/',
     postCart
 );
 
-// PUT /carrito/:cid/product/:pid
+// PUT /carts/:cid/product/:pid
 carritoRouter.put('/:cid/product/:pid',
     updateQuantityProductInCart
 );
 
-// PUT /carrito/:cid/add/:pid
+// PUT /carts/:cid/add/:pid
 carritoRouter.put('/:cid/add/:pid', 
     postProductIntoCart
 )
 
-// DELETE /carrito/:cid 
+// DELETE /carts/:cid 
 carritoRouter.delete('/:cid', 
     deleteCart
 )
 
-// DELETE /carrito/:cid/product/:pid
+// DELETE /carts/:cid/product/:pid
 carritoRouter.delete('/:cid/product/:pid', 
     deleteProdInCart
 );

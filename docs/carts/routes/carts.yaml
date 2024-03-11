@@ -1,0 +1,37 @@
+paths:
+  /api/carts/allCarts:
+    get:
+      tags: 
+       - Carts
+      summary: Get all carts
+      responses:
+        "200":
+          description: Request successful, list of carts obtained
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cart'
+        "500":
+          description: Internal server error
+
+  /api/carts/{cid}:
+    delete:
+      tags:
+        - Carts
+      summary: Delete the cart by ID
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID of the cart to be deleted
+          schema:
+            $type: string
+      responses:
+        "200":
+          description: Request successful, cart deleted
+        "404":
+          description: Invalid data
+        "500":
+          description: Internal server error

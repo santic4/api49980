@@ -1,0 +1,35 @@
+components:
+  schemas:
+    Cart:
+      type: object
+      properties:
+        _id:
+          type: string
+          default: randomUUID
+        status:
+          type: boolean
+          default: true
+        carrito:
+          type: array
+          items:
+            type: object
+            properties:
+              productID:
+                type: string
+                format: uuid
+                description: ID of the product referenced in the cart
+              cant:
+                type: number
+                minimum: 1
+                default: 1
+                description: Quantity of the product
+          description: Array of products in the cart
+        user:
+          type: string
+          description: ID of the user associated with the cart
+        totalAmount:
+          type: number
+          default: 0
+          description: Total amount of the cart
+      required:
+        - user

@@ -1,0 +1,43 @@
+components:
+  requestBody:
+    createProduct:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              _id:
+                type: UUID
+                description: Product ID
+              title:
+                type: string
+                description: Product name
+              description:
+                type: string
+                description: Product description
+              code:
+                type: string
+                description: Unique product code
+              price:
+                type: number
+                description: Product price in Argentine pesos
+              status:
+                type: string
+                description: Default true
+              stock:
+                type: number
+                description: Quantity of product in stock
+              category:
+                type: string
+                description: Product category
+              thumbnail:
+                type: string
+                description: Path to the product image
+      example:
+          title: "Smartphone"
+          description: "A high-performance smartphone with advanced features."
+          code: "SMRT-001"
+          price: 15000
+          stock: 100
+          category: "Electronics"
+          thumbnail: "/images/smartphone.jpg"

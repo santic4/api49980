@@ -1,0 +1,7 @@
+tags:
+  - name: Users
+    description: API for managing users
+  - name: Products
+    description: API for managing products
+  - name: Carts
+    description: API for managing carts

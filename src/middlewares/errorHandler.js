@@ -5,8 +5,10 @@ export function errorHandler(error, req, res, next) {
   
   if (error.type === errorsTypes.AUTH_ERROR) { 
     statusCode = 401;
-  } else if (error.type === errorsTypes.CART_ERROR) {
-    statusCode = 404;
+  } else if (error.type === errorsTypes.PERM_ERROR) {
+    statusCode = 403;
+  } else if (error.type === errorsTypes.DATA_INVALID) {
+    statusCode = 400;
   } else if (error.type === errorsTypes.NOT_FOUND_ERROR) {
     statusCode = 404; 
   }

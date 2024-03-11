@@ -1,0 +1,69 @@
+components:
+  schemas:
+    Users:
+      type: object
+      required:
+        - id
+        - first_name
+        - last_name
+        - username
+        - email
+        - age
+        - password
+        - resetPasswordToken
+        - resetPasswordExpires
+        - cart
+        - rol
+        - orders
+      properties:
+        id:
+          type: string
+          description: User ID
+        first_name:
+          type: string
+          description: The user's first name.
+        last_name:
+          type: string
+          description: The user's last name.
+        username:
+          type: string
+          description: The user's username.
+        email:
+          type: string
+          description: The user's email.
+        age:
+          type: string
+          description: The user's age.
+        password:
+          type: string
+          description: The user's password.
+        resetPasswordToken:
+          type: string
+          description: The user's reset password token.
+        resetPasswordExpires:
+          type: string
+          description: The user's reset password token expiration date.
+        cart:
+          type: string
+          description: The user's cart.
+        rol:
+          type: string
+          description: The user's role.
+        orders:
+          type: array
+          description: The IDs of the user's orders.
+          items:
+            type: string
+      example:
+        id: 4ughd7r3-365n-t5u6-sk85-h58sk23j5k2h
+        first_name: santi
+        last_name: tino
+        username: santisv
+        email: santi@gmail.com
+        age: 30
+        password: abc123
+        resetPasswordToken: resetToken123
+        resetPasswordExpires: 2024-03-10T12:00:00Z
+        cart: ""
+        rol: user
+        orders: []

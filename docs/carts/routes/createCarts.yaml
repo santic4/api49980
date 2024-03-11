@@ -1,0 +1,21 @@
+paths:
+  /api/carts:
+    post:
+      tags: 
+       - Carts
+      summary: Create a cart - Only for User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBody/Cart"
+      responses:
+        "200":
+          description: Request successful, cart created
+        "403":
+          description: You don't have permission to perform this action
+        "404":
+          description: Invalid input data
+        "500":
+          description: Internal server error

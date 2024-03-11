@@ -1,0 +1,43 @@
+components:
+  schemas:
+    Products:
+      type: object
+      required:
+      - title 
+      - description
+      - code
+      - price 
+      - status
+      - stock
+      - category
+      properties:
+        _id:
+          type: UUID
+          description: product ID
+        title:
+          type: string
+          description: Product name
+        description:
+          type: string
+          description: Product description
+        code:
+          type: string
+          description: Unique product code
+        price:
+          type: number
+          description: Product price in Argentine pesos
+        status:
+          type: string
+          description: default true
+        stock:
+          type: number
+          description: Quantity of product in stock
+        category:
+          type: string
+          description: Product category
+        image:
+          type: string
+          description: Path to the product image
+        owner:
+          type: string
+          description: Reference to the person who created the product

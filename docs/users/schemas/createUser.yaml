@@ -1,0 +1,40 @@
+components:
+  requestBodies:
+    createUser:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - first_name
+              - last_name
+              - username
+              - email
+              - age
+              - password
+            properties:
+              first_name:
+                type: string
+                description: The user's first name.
+              last_name:
+                type: string
+                description: The user's last name.
+              username:
+                type: string
+                description: The user's username.
+              email:
+                type: string
+                description: The user's email.
+              age:
+                type: number
+                description: The user's age.
+              password:
+                type: string
+                description: The user's password.
+      example:
+        first_name: santi
+        last_name: tino
+        username: santino
+        email: santi@gmail.com
+        age: 24
+        password: abc123

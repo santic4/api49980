@@ -1,0 +1,21 @@
+paths:
+  /api/products:
+    post:
+      tags: 
+       - Products
+      summary: Create a product - Only for Admin or Premium users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBody/createProduct"
+      responses:
+        "200":
+          description: Request successful, product created
+        "403":
+          description: You don't have permission to perform this action
+        "400":
+          description: Invalid input data
+        "500":
+          description: Internal server error

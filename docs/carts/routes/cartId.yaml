@@ -1,0 +1,104 @@
+paths:   
+  /api/carts/{id}:
+    get:
+      tags: 
+       - Carts
+      summary: Get a cart by its ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the cart to be retrieved
+          schema:
+            $type: string
+      responses:
+        "200":
+          description: Request successful, cart retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Cart'
+        "404":
+          description: Invalid data
+        "500":
+          description: Internal server error
+  
+  /api/carts/{cid}/products/{pid}:
+    put:
+      tags:
+        - Carts
+      summary: Update quantity of a product within the cart
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: Corresponding cart
+          schema:
+            $type: string
+        - name: pid
+          in: path
+          required: true
+          description: Product to update quantity
+          schema:
+            $type: string
+      responses:
+        "201":
+          description: Request successful, product updated
+        "404":
+          description: Invalid data
+        "500":
+          description: Internal server error
+
+  /api/carts/{id}/add/{pid}:
+    put:
+      tags:
+        - Carts
+      summary: Add product by id to the cart
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the cart to be retrieved
+          schema:
+            $type: string
+        - name: pid
+          in: path
+          required: true
+          description: ID of the product to be added
+          schema:
+            $type: string
+      responses:
+        "201":
+          description: Request successful, product added to the cart
+        "404":
+          description: Invalid data
+        "500":
+          description: Internal server error
+
+  /api/carts/{cid}/product/{pid}:
+    delete:
+      tags:
+        - Carts
+      summary: Remove product by id from the cart
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID of the cart to be retrieved
+          schema:
+            $type: string
+        - name: pid
+          in: path
+          required: true
+          description: ID of the product to be removed
+          schema:
+            $type: string
+      responses:
+        "200":
+          description: Request successful, product removed from the cart
+        "404":
+          description: Invalid data
+        "500":
+          description: Internal server error

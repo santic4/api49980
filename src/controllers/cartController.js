@@ -41,10 +41,12 @@ export const postCart = async (req, res, next) => {
 
 export const updateQuantityProductInCart = async (req, res, next) => {
     try {
+        console.log(req.body.quantity, 'req.body')
         const { cid, pid } = req.params;
-        const { nuevaCantidad } = req.body;
+        const nuevaCantidad  = req.body.quantity;
+   
         const cantidadNumerica = parseInt(nuevaCantidad);
-       
+
         const productoActualizado = await cartServices.updateQuantityProductInCart(cid, pid, cantidadNumerica);
 
         res.status(201).json({ message: 'Producto Actualizado en el Carrito', info: productoActualizado });
