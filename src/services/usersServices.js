@@ -125,6 +125,17 @@ class UsersServices {
       return updatedUser;
     }
     
+    async deleteUsers() {
+      const today = new Date();
+      const twoDaysAgo = today.setDate(today.getDate() - 2);
+
+      const days = new Date(twoDaysAgo);
+
+
+      const users = await usersRepository.deleteUsers(days);
+
+      return users;
+    }
 }
 
 export const usersServices = new UsersServices()

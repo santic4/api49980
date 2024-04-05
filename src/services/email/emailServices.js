@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer'
 import { EMAIL_USER, EMAIL_PASS } from '../../config/config.js'
+import { logger } from '../../utils/logger.js'
 
 const transport = nodemailer.createTransport({
     service: 'gmail',
@@ -23,7 +24,7 @@ class EmailService {
         }
         
         await transport.sendMail(emailOptions)
-        console.log(emailOptions)
+        logger.info(`Se envio un mail a "${destinatario}" con el asunto "${asunto}"`)
 
     }
 

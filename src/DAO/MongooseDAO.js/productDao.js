@@ -1,4 +1,4 @@
-import { Product } from '../models/mongoose/productModel.js'
+import { Product } from '../../models/mongoose/productModel.js'
 
 class ProductDao{
     async getAllProducts(filter, options){

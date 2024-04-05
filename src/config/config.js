@@ -17,5 +17,5 @@ export const SESSION_SECRET = process.env.SESSION_SECRET
 export const JWT_PRIVATE_KEY = process.env.JWT_PRIVATE_KEY
 
 // Email Services
-export const EMAIL_USER = 'ventadele1234@gmail.com'
-export const EMAIL_PASS = ''
+export const EMAIL_USER = process.env.EMAIL_USER
+export const EMAIL_PASS = process.env.EMAIL_PASS

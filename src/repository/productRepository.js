@@ -1,4 +1,4 @@
-import { productDao } from "../DAO/productDao.js"
+import { productDao } from "../DAO/MongooseDAO.js/productDao.js"
 import { DataInvalid } from '../models/errors/dataInvalid.js'
 
 class ProductRepository{

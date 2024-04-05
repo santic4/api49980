@@ -1,4 +1,4 @@
-import { usersOnly } from "../middlewares/authorizationUserAdmin.js";
+//import { usersOnly } from "../middlewares/authorizationUserAdmin.js";
 import { logger } from "../utils/logger.js";
 import { appendJwtAsCookie, removeJwtFromCookies } from "./authentication.js";
 
@@ -16,7 +16,6 @@ export const loginUser = async (req, res, next) => {
 
 export const getCurrentSessionUser = async (req, res, next) => {
   try {
-    usersOnly,
     res.successfullGet(req.user);
   } catch (err) {
     

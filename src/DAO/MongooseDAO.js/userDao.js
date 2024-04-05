@@ -1,5 +1,7 @@
-import { AuthenticationError } from "../models/errors/authenticationError.js";
-import { usersManager } from "../models/index.js";
+import { UserDTO } from "../../dto/dto.js";
+import { AuthenticationError } from "../../models/errors/authenticationError.js";
+import { usersManager } from "../../models/index.js";
+import { logger } from "../../utils/logger.js";
 
 class UserDao {
 
@@ -19,6 +21,9 @@ class UserDao {
       try {
         const user = await usersManager.findOne({ username })
 
+        user.lastLogin = new Date();
+        await user.save();
+
         return user.toObject() 
 
       } catch (error) {
@@ -27,7 +32,10 @@ class UserDao {
     };
 
     async findAllUsers() {
-      return await usersManager.find({}, { password: 0 }).lean();
+      const users = await usersManager.find({}, { password: 0 }).lean();
+      const usersDTO = users.map(user => new UserDTO(user));
+
+      return usersDTO;
     };
 
     async findOne(email) {
@@ -67,6 +75,18 @@ class UserDao {
       console.log(result, 'RESULT')
 
       return result
+    }
+
+    async deleteUsers(twoDaysAgo) {
+      console.log(twoDaysAgo,'ahoraa')
+      const deletedUsers = await usersManager.deleteMany({
+        rol: 'user',
+        lastLogin: { $lt: twoDaysAgo }
+    });
+
+    logger.info(deletedUsers.deletedCount > 0 && `Se eliminaron ${deletedUsers.deletedCount} usuarios.`)
+
+    return deletedUsers;
     }
 }
 

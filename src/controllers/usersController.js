@@ -92,3 +92,13 @@ export const changeUserRole= async(req, res, next)=> {
     next(error)
   }
 }
+
+export const deleteUsersIn= async(req, res, next)=> {
+  try {
+    const users = await usersServices.deleteUsers();
+
+    res.json(users);
+  } catch (error) {
+    next(error)
+  }
+}

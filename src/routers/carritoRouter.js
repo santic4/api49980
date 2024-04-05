@@ -10,7 +10,7 @@ carritoRouter.get('/allCarts',
     getAllCarts
 );
 
-// GET /carts/:pid/
+// GET /carts/:cid/
 carritoRouter.get('/:cid',
     getCartId
 );

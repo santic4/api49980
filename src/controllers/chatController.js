@@ -1,4 +1,4 @@
-import { chatDao } from '../DAO/chatDao.js'
+import { chatDao } from '../DAO/MongooseDAO.js/chatDao.js'
 
 export const chatController = async (req, res, next) => { 
 

@@ -2,6 +2,7 @@ import { PermissionsError } from "../models/errors/permissionsError.js";
 import { productRepository } from "../repository/productRepository.js";
 import { usersRepository } from "../repository/usersRepository.js";
 import { NotFoundError } from '../models/errors/notFoundError.js'
+import { emailService } from "./email/emailServices.js";
 
 class ProductServices{
     async getAllProducts(filter, options){
@@ -99,14 +100,22 @@ class ProductServices{
         if (!(Usuario.rol === 'admin' || Usuario.rol === 'premium')) {
             throw new Error('No tienes permisos para modificar productos');
         }
- 
+
         const product = await productRepository.getProductId(pid);
 
         if (product.owner.toString() !== userId) {
              throw new Error('No tienes permisos para modificar este producto');
         }
 
-        const delProducto = await productRepository.deleteProduct(pid, userId);
+        const delProducto = await productRepository.deleteProduct(pid);
+
+        console.log(delProducto,'delproducto')
+
+        delProducto && Usuario.rol === 'premium' && emailService.send(
+            Usuario.email,
+            'Producto eliminado',
+            `El producto eliminado fue ${product.title}`
+        );
 
         return delProducto;
     }; 

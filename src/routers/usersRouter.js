@@ -1,11 +1,11 @@
 import { Router } from 'express'
 
 //controllers
-import { registerUser, getCurrentUser, getAllUsers, passwordforgot, passwordReset, changeUserRole } from '../controllers/usersController.js'
+import { registerUser, getCurrentUser, getAllUsers, passwordforgot, passwordReset, changeUserRole, deleteUsersIn } from '../controllers/usersController.js'
 
 // passport
 import { passportAuth, passportLocalRegister } from '../middlewares/passport.js'
-import { adminsOnly, usersOnly } from '../middlewares/authorizationUserAdmin.js'
+import { adminsOnly, premiumOnly, usersOnly } from '../middlewares/authorizationUserAdmin.js'
 
 
 export const usersRouter = Router()
@@ -17,7 +17,7 @@ usersRouter.post('/',
 )
 
 // User ya logueado con session ( ya que session le mete la cookie que hay que extraer aca)
-usersRouter.get('/current', 
+ usersRouter.get('/current', 
     passportAuth,
     usersOnly,
     getCurrentUser
@@ -26,7 +26,7 @@ usersRouter.get('/current',
 // Admins
 usersRouter.get('/',
     passportAuth,
-    adminsOnly,
+    premiumOnly,
     getAllUsers
 )
 
@@ -40,4 +40,10 @@ usersRouter.post('/resetPassword/:token',
 
 usersRouter.post('/premium/:uid',
     changeUserRole
+);
+
+usersRouter.delete('/delete',
+    passportAuth,
+    adminsOnly,
+    deleteUsersIn
 );

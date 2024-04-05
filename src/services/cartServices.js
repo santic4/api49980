@@ -3,7 +3,7 @@ import { Carrito } from "../models/mongoose/cartModel.js"
 import { cartRepository } from "../repository/cartRepository.js"
 import { usersRepository } from "../repository/usersRepository.js"
 import { productRepository } from "../repository/productRepository.js"
-import { cartDao } from "../DAO/cartDao.js"
+import { cartDao } from "../DAO/MongooseDAO.js/cartDao.js"
 import { ticketServices } from '../services/ticketServices.js'
 import { emailService } from '../services/email/emailServices.js'
 import { NotFoundError } from '../models/errors/notFoundError.js'
@@ -57,8 +57,7 @@ class CartServices {
             throw new Error('El carrito no existe')
         }
 
-        // Comprueba existencia de producto buscado
-        /* Esto habria que cambiarlo por un repositorio de product */
+
         const productExist = await Carrito.find({
           _id: cid,
           carrito: { $elemMatch: { productID: pid } }

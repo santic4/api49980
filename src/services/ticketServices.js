@@ -1,4 +1,4 @@
-import { ticketDao } from '../DAO/ticketDao.js'
+import { ticketDao } from '../DAO/MongooseDAO.js/ticketDao.js'
 
 class TicketService {
   static async generateTicket(code, purchaseDatetime, amount, purchaser) {

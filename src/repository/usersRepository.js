@@ -1,4 +1,4 @@
-import { userDao } from "../DAO/userDao.js"
+import { userDao } from "../DAO/MongooseDAO.js/userDao.js"
 import { AuthenticationError } from "../models/errors/authenticationError.js"
 
 class UsersRepository {
@@ -75,6 +75,16 @@ class UsersRepository {
             const result = await userDao.changeRol(userId, newRol)
 
             return result
+        } catch (error) {
+            throw new AuthenticationError()
+        }
+    }
+
+    async deleteUsers(twoDaysAgo) {
+        try {
+            const users = await userDao.deleteUsers(twoDaysAgo)
+
+            return users
         } catch (error) {
             throw new AuthenticationError()
         }

@@ -1,4 +1,4 @@
-import { Carrito } from "../models/mongoose/cartModel.js"
+import { Carrito } from "../../models/mongoose/cartModel.js"
 
 class CartDao {
     async getAllCarts() {
