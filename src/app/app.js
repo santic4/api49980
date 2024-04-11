@@ -6,6 +6,7 @@ import { metodosPersonalizados } from '../middlewares/respuestasMejoradas.js'
 import { passportInitialize } from '../middlewares/authentication.js'
 import { cookies } from '../middlewares/cookie.js'
 import { sesiones } from '../middlewares/sesiones.js'
+import path from 'path';
 
 export const app = express()
 
@@ -15,12 +16,20 @@ app.use(cors({
     credentials: true 
 }));
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://pf-santiago-front.onrender.com');
-    res.header('Access-Control-Allow-Credentials', 'true');
-    next();
+//app.use((req, res, next) => {
+//    res.header('Access-Control-Allow-Origin', 'https://pf-santiago-front.onrender.com');
+//    res.header('Access-Control-Allow-Credentials', 'true');
+//    next();
+//});
+
+
+app.use(express.static(path.join(process.cwd(), 'public', 'build')));
+
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(process.cwd(), 'public', 'build', 'index.html'));
 });
-  
+
 app.use(passportInitialize)
 
 app.use(metodosPersonalizados)
