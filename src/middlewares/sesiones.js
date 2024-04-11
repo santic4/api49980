@@ -12,9 +12,11 @@ export const sesiones = session({
   secret: 'SecretCoder',
   resave: false,
   saveUninitialized: false,
-  cookie: {
-      httpOnly: true, 
-      signed: true, 
-      maxAge: 60 * 60 * 24 * 1000 
-  }
+  //cookie: {
+  //    httpOnly: true, 
+  //    secure: true,
+  //    signed: true, 
+  //    sameSite: "none", 
+  //    maxAge: 60 * 60 * 24 * 1000 
+  //}
 });
