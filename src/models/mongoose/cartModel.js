@@ -11,7 +11,7 @@ const schemaCarrito = new Schema(
         cant: { type: Number, min: 1, default: 1 },
       },
     ],
-    user: { type: String, required: true }, // Agregamos un campo para almacenar el ID del usuario asociado al carrito
+    user: { type: String, required: true },
     totalAmount: { type: Number, default: 0 },
   }, 
   {

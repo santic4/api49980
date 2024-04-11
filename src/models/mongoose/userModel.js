@@ -13,7 +13,13 @@ const schema = new Schema({
   resetPasswordExpires: {type: Date},
   cart: { type: String, default: '' },
   rol: { type: String, default: 'user' },
-  lastLogin: { type: Date },
+  last_connection: { type: Date },
+  documents: [
+    {
+      name: { type: String },
+      reference: { type: String }
+    }
+  ],
   orders: {
     type: [
       {

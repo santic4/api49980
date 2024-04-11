@@ -13,8 +13,8 @@ class CartRepository {
         return cartID
     }
 
-    async postCart(cartData){
-        const newCart = await cartDao.postCart(cartData)
+    async postCart(userId){
+        const newCart = await cartDao.postCart(userId)
 
         return newCart
     }

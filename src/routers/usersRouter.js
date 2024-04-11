@@ -1,12 +1,12 @@
 import { Router } from 'express'
 
 //controllers
-import { registerUser, getCurrentUser, getAllUsers, passwordforgot, passwordReset, changeUserRole, deleteUsersIn } from '../controllers/usersController.js'
+import { registerUser, getCurrentUser, getAllUsers, passwordforgot, passwordReset, changeUserRole, deleteUsersIn, uploadDocuments, deleteUserId } from '../controllers/usersController.js'
 
 // passport
 import { passportAuth, passportLocalRegister } from '../middlewares/passport.js'
 import { adminsOnly, premiumOnly, usersOnly } from '../middlewares/authorizationUserAdmin.js'
-
+import { upload } from '../middlewares/multer.js'
 
 export const usersRouter = Router()
 
@@ -16,8 +16,7 @@ usersRouter.post('/',
     registerUser
 )
 
-// User ya logueado con session ( ya que session le mete la cookie que hay que extraer aca)
- usersRouter.get('/current', 
+usersRouter.get('/current', 
     passportAuth,
     usersOnly,
     getCurrentUser
@@ -26,7 +25,7 @@ usersRouter.post('/',
 // Admins
 usersRouter.get('/',
     passportAuth,
-    premiumOnly,
+    adminsOnly,
     getAllUsers
 )
 
@@ -36,9 +35,20 @@ usersRouter.post('/forgotPassword',
 
 usersRouter.post('/resetPassword/:token',
     passwordReset
+)
+
+usersRouter.post('/current/documents',
+    passportAuth,
+    upload.fields([
+        { name: 'identification', maxCount: 1 },
+        { name: 'address_proof', maxCount: 1 },
+        { name: 'bank_statement', maxCount: 1 }
+    ]),
+    uploadDocuments
 );
 
 usersRouter.post('/premium/:uid',
+    passportAuth,
     changeUserRole
 );
 
@@ -46,4 +56,10 @@ usersRouter.delete('/delete',
     passportAuth,
     adminsOnly,
     deleteUsersIn
+);
+
+usersRouter.delete('/delete/:uid',
+    passportAuth,
+    adminsOnly,
+    deleteUserId
 );

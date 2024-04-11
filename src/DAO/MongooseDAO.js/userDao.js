@@ -21,7 +21,7 @@ class UserDao {
       try {
         const user = await usersManager.findOne({ username })
 
-        user.lastLogin = new Date();
+        user.last_connection = new Date();
         await user.save();
 
         return user.toObject() 
@@ -69,10 +69,22 @@ class UserDao {
       return result
     }
 
-    async changeRol(userId, newRol) {
-      const result = await usersManager.findByIdAndUpdate(userId, { rol: newRol }, { new: true }).lean()
+    async uploadDocuments(documents, user) {
+      const result = await usersManager.findByIdAndUpdate(
+        user._id, 
+        { $set: { documents } },
+        { new: true })
+        .lean()
 
-      console.log(result, 'RESULT')
+      return result
+    }
+
+    async changeRol(userId, newRol) {
+      const result = await usersManager.findByIdAndUpdate(
+        userId, 
+        { rol: newRol }, 
+        { new: true })
+        .lean()
 
       return result
     }
@@ -81,12 +93,20 @@ class UserDao {
       console.log(twoDaysAgo,'ahoraa')
       const deletedUsers = await usersManager.deleteMany({
         rol: 'user',
-        lastLogin: { $lt: twoDaysAgo }
+        last_connection: { $lt: twoDaysAgo }
     });
 
     logger.info(deletedUsers.deletedCount > 0 && `Se eliminaron ${deletedUsers.deletedCount} usuarios.`)
 
     return deletedUsers;
+    }
+
+    async deleteUserId(uid) {
+      const deletedUser = await usersManager.findByIdAndDelete(uid);
+
+      logger.info(`Se eliminao a`, deletedUser)
+
+      return deletedUser;
     }
 }
 

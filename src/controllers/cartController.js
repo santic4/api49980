@@ -30,7 +30,7 @@ export const getCartId = async (req, res, next) => {
 // Crear un nuevo carrito
 export const postCart = async (req, res, next) => {
     try {
-        const newCarrito = await cartServices.postCart(req.body);
+        const newCarrito = await cartServices.postCart(req.body.userId);
         
         res.json(newCarrito);
 

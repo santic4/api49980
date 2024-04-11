@@ -19,3 +19,6 @@ export const JWT_PRIVATE_KEY = process.env.JWT_PRIVATE_KEY
 // Email Services
 export const EMAIL_USER = process.env.EMAIL_USER
 export const EMAIL_PASS = process.env.EMAIL_PASS
+
+// Stripe
+export const STRIPE_KEY_P = process.env.STRIPE_KEY_P

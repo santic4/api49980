@@ -4,6 +4,7 @@ import { usersRepository } from '../repository/usersRepository.js'
 import { AuthenticationError } from '../models/errors/authenticationError.js'
 import { JWT_PRIVATE_KEY } from '../config/config.js'
 import jwt from 'jsonwebtoken';
+import { DataInvalid } from '../models/errors/dataInvalid.js'
 
 class UsersServices {
     async createUser(userData){
@@ -75,8 +76,6 @@ class UsersServices {
       return resetToken;
     }
 
-
-
     async resetPassword(token, newPassword){
         try {
           const user = await usersRepository.findOnetoken({
@@ -115,12 +114,49 @@ class UsersServices {
         }
     };
 
+    async uploadDocuments(identificationFile, addressProofFile, bankStatementFile, user){
+      try {
+        if (!identificationFile || !addressProofFile || !bankStatementFile || !user) {
+          throw new DataInvalid();
+        }
+
+        const documents = [
+          {
+            name: identificationFile.fieldname ,
+            reference: identificationFile.filename 
+          },
+          {
+            name: addressProofFile.fieldname,
+            reference: addressProofFile.filename
+          },
+          {
+            name: bankStatementFile.fieldname,
+            reference: bankStatementFile.filename
+          }
+        ];
+
+        const response = await usersRepository.uploadDocuments(documents, user)
+
+        return response
+      } catch (error) {
+          throw new DataInvalid()
+      }
+  }
+
     async changeRol(userId, newRol) {
       if (newRol !== 'user' && newRol !== 'premium') {
         throw new Error('El rol proporcionado no es válido');
       }
 
-      const updatedUser = await usersRepository.changeRol(userId, newRol);
+      const userFound = await usersRepository.findById(userId)
+
+      console.log(userFound,'USERFOUND')
+
+      if (newRol === 'premium' && userFound.documents.length === 0) {
+        throw new DataInvalid()
+      } 
+
+      const updatedUser = await usersRepository.changeRol(userFound._id, newRol);
 
       return updatedUser;
     }
@@ -133,6 +169,16 @@ class UsersServices {
 
 
       const users = await usersRepository.deleteUsers(days);
+
+      return users;
+    }
+
+    async deleteUserId(uid) {
+      if(!uid){
+        throw new DataInvalid()
+      }
+
+      const users = await usersRepository.deleteUserId(uid);
 
       return users;
     }

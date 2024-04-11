@@ -1,4 +1,6 @@
+import { usersManager } from "../../models/index.js";
 import { Carrito } from "../../models/mongoose/cartModel.js"
+import { logger } from "../../utils/logger.js";
 
 class CartDao {
     async getAllCarts() {
@@ -24,9 +26,17 @@ class CartDao {
       }
     }
 
-    async postCart(cartData){
+    async postCart(userId){
       try {
-        const newCarrito = await Carrito.create({ user: cartData.user })
+        const userFound = await usersManager.findById(userId)
+
+        logger.info(userFound,'useForund')
+
+        const newCarrito = await Carrito.create({ user: userFound._id })
+
+        const newUser = await usersManager.findByIdAndUpdate(userFound._id, { cart: newCarrito._id });
+       
+        logger.info(newUser,'nuevousuario')
 
         return newCarrito
       } catch (error) {
@@ -38,8 +48,6 @@ class CartDao {
       try {
         const carrito = await Carrito.findById(cid);
 
-        console.log(cantidadNumerica, 'cantidadNumerica')
-
         await carrito.upsertProd(pid, cantidadNumerica);
         
         return carrito
@@ -49,7 +57,7 @@ class CartDao {
     }
 
     async postProductIntoCart(cid, pid, productExist){
-      console.log(cid, pid,'NEW DATA', productExist)
+
       if (productExist.length > 0) {
         
         const updProduct = await Carrito.findByIdAndUpdate(
@@ -79,11 +87,13 @@ class CartDao {
     }
 
     async deleteProdInCart(cid, pid){
+
         const deletedProd = await Carrito.findByIdAndUpdate(
           cid,
-          { $pull: { carrito: { _id: pid } } },
+          { $pull: { carrito: { productID: pid } } },
           { new: true }
         );
+        console.log(deletedProd,'DELETED PROD')
 
         return deletedProd
     }

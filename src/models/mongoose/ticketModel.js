@@ -1,11 +1,9 @@
 import  mongoose from 'mongoose';
+import { randomUUID } from 'crypto'
 
 const ticketSchema = new mongoose.Schema({
   code: {
-    type: String,
-    unique: true,
-    required: true,
-    default: () => Math.random().toString(36).substring(2, 10).toUpperCase(), // Generar un código aleatorio único
+    type: String, unique: true, default: randomUUID
   },
   purchase_datetime: {
     type: Date,

@@ -1,7 +1,7 @@
 import { ticketDao } from '../DAO/MongooseDAO.js/ticketDao.js'
 
 class TicketService {
-  static async generateTicket(code, purchaseDatetime, amount, purchaser) {
+  async generateTicket(code, purchaseDatetime, amount, purchaser) {
     try {
       const ticketData = {
         code,

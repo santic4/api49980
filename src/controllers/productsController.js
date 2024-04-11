@@ -4,12 +4,12 @@ export const getAllProducts = async (req, res, next) => {
     try {
         const options = {
           page: req.query.page || 1,
-          limit: req.query.itemsPorPagina || 10, // Cambié el nombre según el frontend
+          limit: req.query.itemsPorPagina || 10, 
           sort: req.query.order ? { 'price': req.query.order } : {},
           lean: true,
         };
     
-        const filter = req.query.filtro ? { category: req.query.filtro } : {}; // Cambié el nombre según el frontend
+        const filter = req.query.filtro ? { category: req.query.filtro } : {}; 
     
         const paginado = await productServices.getAllProducts(filter, options);
 

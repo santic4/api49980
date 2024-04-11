@@ -1,5 +1,6 @@
 import { userDao } from "../DAO/MongooseDAO.js/userDao.js"
 import { AuthenticationError } from "../models/errors/authenticationError.js"
+import { DataInvalid } from "../models/errors/dataInvalid.js"
 
 class UsersRepository {
     async createUser(userData) {
@@ -70,6 +71,20 @@ class UsersRepository {
         }
     }
 
+    async uploadDocuments(documents, user) {
+        try {
+            const response = await userDao.uploadDocuments(documents, user)
+
+            if(!response){
+                throw new DataInvalid()
+            }
+
+            return response
+        } catch (error) {
+            throw new DataInvalid()
+        }
+    }
+
     async changeRol(userId, newRol) {
         try {
             const result = await userDao.changeRol(userId, newRol)
@@ -87,6 +102,16 @@ class UsersRepository {
             return users
         } catch (error) {
             throw new AuthenticationError()
+        }
+    }
+
+    async deleteUserId(uid) {
+        try {
+            const user = await userDao.deleteUserId(uid)
+
+            return user
+        } catch (error) {
+            throw new DataInvalid()
         }
     }
 }

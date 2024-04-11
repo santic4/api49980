@@ -1,4 +1,3 @@
-import { randomUUID } from "crypto"
 import { Carrito } from "../models/mongoose/cartModel.js"
 import { cartRepository } from "../repository/cartRepository.js"
 import { usersRepository } from "../repository/usersRepository.js"
@@ -21,8 +20,8 @@ class CartServices {
         return cartSelected
     }
 
-    async postCart(cartData){
-        const newCart = await cartRepository.postCart(cartData)
+    async postCart(userId){
+        const newCart = await cartRepository.postCart(userId)
 
         return newCart
     }
@@ -109,19 +108,21 @@ class CartServices {
     async purchaseCart(cartID) {
         try {
             const cart = await cartRepository.getCartId(cartID);
+     
             const failedProductIds = [];
-            const username = cart.user;
+            const userID = cart.user;
 
-            const user = await usersRepository.readOne({ username });
+            const user = await usersRepository.findById(userID);
 
             const email = user.email;
+            console.log(cart,'cart')
 
             const ticket = await this.createTicket(cart);
 
             await this.processProducts(cart, failedProductIds);
 
             await this.updateCartAfterPurchase(cart, failedProductIds);
-
+  
             await emailService.send(
                 email,
                 'Gracias por su compra',
@@ -137,12 +138,12 @@ class CartServices {
     }
 
     async createTicket(cart, userEmail) {
-        const ticketData = {
-          code: randomUUID, 
+        const ticketData = { 
           purchase_datetime: new Date(),
           amount: cart.totalAmount,
           purchaser: cart.user,
         };
+        console.log(ticketData,'ticketDATA')
      
         const ticket = await ticketServices.generateTicket(
           ticketData.code,

@@ -44,6 +44,7 @@ class ProductDao{
     }
 
     async deleteProduct(pid){
+        console.log(pid,'pid en el dao de productos')
         const delProduct = await Product.findByIdAndDelete(pid);
 
         return delProduct
