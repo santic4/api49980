@@ -12,4 +12,10 @@ export const sesiones = session({
   secret: SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
+  cookie: {
+      httpOnly: true, 
+      secure: true, 
+      sameSite: "none", 
+      maxAge: 60 * 60 * 24 * 1000 
+  }
 });

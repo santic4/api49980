@@ -14,6 +14,12 @@ app.use(cors({
     origin: 'https://pf-santiago-front.onrender.com',
     credentials: true 
 }));
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'https://pf-santiago-front.onrender.com');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    next();
+});
   
 app.use(passportInitialize)
 
