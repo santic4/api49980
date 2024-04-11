@@ -1,7 +1,7 @@
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt'
-//import { JWT_PRIVATE_KEY } from '../config/config.js'
+import { JWT_PRIVATE_KEY } from '../config/config.js'
 import { jwtAuthentication, loginUser, registerUser } from '../controllers/authentication.js'
 import { logger } from '../utils/logger.js'
 
@@ -26,10 +26,12 @@ passport.use('jwtAuth', new JwtStrategy({
     if (req?.signedCookies) {
       token = req.signedCookies['authorization']
     }
+
+    console.log(token,'TOKEN EN JWT AUTH')
     
     return token
   }]),
-  secretOrKey: 'jwtsecret'
+  secretOrKey: JWT_PRIVATE_KEY
 }, jwtAuthentication));
 
 
