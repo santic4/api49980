@@ -11,7 +11,7 @@ export const app = express()
 
 // CORS
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://pf-santiago-front.onrender.com',
     credentials: true 
 }));
   
