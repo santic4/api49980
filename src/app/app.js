@@ -10,17 +10,18 @@ import path from 'path';
 
 export const app = express()
 
-// CORS
-//app.use(cors({
-//    origin: 'https://pf-santiago-front.onrender.com',
-//    credentials: true 
-//}));
 
-//app.use((req, res, next) => {
-//    res.header('Access-Control-Allow-Origin', 'https://pf-santiago-front.onrender.com');
-//    res.header('Access-Control-Allow-Credentials', 'true');
-//    next();
-//});
+
+ //CORS
+app.use(cors({
+    origin: 'https://api49980.onrender.com',
+    credentials: true 
+}));
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'https://api49980.onrender.com');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    next();
+});
 
 
 app.use(express.static(path.join(process.cwd(), 'public', 'build')));
