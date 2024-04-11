@@ -1,7 +1,7 @@
 import { usersServices } from '../services/usersServices.js'
 import { encriptar } from "../utils/cryptografia.js"
 
-const COOKIE_OPTS = { signed: true, maxAge: 1000 * 60 * 60, httpOnly: true }
+const COOKIE_OPTS = { signed: true, maxAge: 1000 * 60 * 60, httpOnly: true, sameSite: "none" }
 
 export async function registerUser(req, _username, _password, done) {
   try {

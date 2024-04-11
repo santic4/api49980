@@ -31,7 +31,7 @@ const winstonLoggerProd = winston.createLogger({
 
 export let logger
 if (NODE_ENV === 'prod') {
-  logger = winstonLoggerProd
-} else {
   logger = winstonLoggerDev
+} else {
+  logger = winstonLoggerProd
 }

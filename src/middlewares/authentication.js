@@ -29,7 +29,7 @@ passport.use('jwtAuth', new JwtStrategy({
     
     return token
   }]),
-  secretOrKey: JWT_PRIVATE_KEY
+  secretOrKey: 'jwtsecret'
 }, jwtAuthentication));
 
 
