@@ -1,6 +1,6 @@
 import session from 'express-session';
 import connectMongo from 'connect-mongo';
-import { MONGODB, SESSION_SECRET } from '../config/config.js';
+import { MONGODB } from '../config/config.js';
 
 const store = connectMongo.create({
   mongoUrl: MONGODB,
@@ -9,7 +9,7 @@ const store = connectMongo.create({
 
 export const sesiones = session({
   store,
-  secret: SESSION_SECRET,
+  secret: 'SecretCoder',
   resave: false,
   saveUninitialized: false,
   cookie: {
