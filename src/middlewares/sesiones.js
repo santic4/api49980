@@ -15,7 +15,7 @@ export const sesiones = session({
   cookie: {
       httpOnly: true, 
       secure: true, 
-      sameSite: "none", 
+      sameSite: "lax", 
       maxAge: 60 * 60 * 24 * 1000 
   }
 });

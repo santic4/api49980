@@ -7,7 +7,7 @@ export async function registerUser(req, _username, _password, done) {
   try {
 
     const user = await usersServices.createUser(req.body)
-    console.log('ya casi termina', user)
+    
     done(null, user)
   } catch (error) {
     done(error)

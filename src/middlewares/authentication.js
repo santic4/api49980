@@ -3,6 +3,7 @@ import { Strategy as LocalStrategy } from 'passport-local'
 import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt'
 import { JWT_PRIVATE_KEY } from '../config/config.js'
 import { jwtAuthentication, loginUser, registerUser } from '../controllers/authentication.js'
+import { logger } from '../utils/logger.js'
 
 
 passport.use('localRegister', new LocalStrategy(
@@ -20,6 +21,7 @@ passport.use('localLogin', new LocalStrategy(
 
 passport.use('jwtAuth', new JwtStrategy({
   jwtFromRequest: ExtractJwt.fromExtractors([function (req) {
+    logger.info('entre a jwtAuth')
     let token = null
     if (req?.signedCookies) {
       token = req.signedCookies['authorization']
