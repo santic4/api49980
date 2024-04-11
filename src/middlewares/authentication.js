@@ -1,7 +1,7 @@
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt'
-import { JWT_PRIVATE_KEY } from '../config/config.js'
+//import { JWT_PRIVATE_KEY } from '../config/config.js'
 import { jwtAuthentication, loginUser, registerUser } from '../controllers/authentication.js'
 import { logger } from '../utils/logger.js'
 
