@@ -6,7 +6,6 @@ import { metodosPersonalizados } from '../middlewares/respuestasMejoradas.js'
 import { passportInitialize } from '../middlewares/authentication.js'
 import { cookies } from '../middlewares/cookie.js'
 import { sesiones } from '../middlewares/sesiones.js'
-import path from 'path';
 
 export const app = express()
 
@@ -23,12 +22,7 @@ export const app = express()
 //});
 
 
-app.use(express.static(path.join(process.cwd(), 'public', 'build')));
-
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(process.cwd(), 'public', 'build', 'index.html'));
-});
+express.static('public')
 
 app.use(passportInitialize)
 
