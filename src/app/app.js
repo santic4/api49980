@@ -1,11 +1,12 @@
 import express from 'express'
 import { loggerInRequest } from '../middlewares/logger.js'
-//import cors from 'cors'
+import cors from 'cors'
 import { apiRouter } from '../routers/apiRouter.js'
 import { metodosPersonalizados } from '../middlewares/respuestasMejoradas.js'
 import { passportInitialize } from '../middlewares/authentication.js'
 import { cookies } from '../middlewares/cookie.js'
 import { sesiones } from '../middlewares/sesiones.js'
+import path from 'path';
 
 export const app = express()
 
@@ -22,7 +23,8 @@ export const app = express()
 //});
 
 
-express.static('public')
+app.use(express.static(path.join(__dirname, 'public', 'build')));
+
 
 app.use(passportInitialize)
 
