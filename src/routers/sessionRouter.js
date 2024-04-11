@@ -1,6 +1,6 @@
 import { Router } from "express"
 import { appendJwtAsCookie, removeJwtFromCookies } from "../controllers/authentication.js"
-import { passportAuth, passportLogin } from "../middlewares/passport.js"
+import { passportAuth, passportLogin, sessionAuth } from "../middlewares/passport.js"
 import { logoutSession, loginUser, getCurrentSessionUser } from "../controllers/sessionController.js"
 
 export const sessionRouter = Router()
@@ -14,7 +14,7 @@ sessionRouter.post('/',
 
 // view
 sessionRouter.get('/current', 
-    passportAuth,
+    sessionAuth,
     getCurrentSessionUser
 )
 
