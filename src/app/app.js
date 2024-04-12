@@ -1,6 +1,5 @@
 import express from 'express'
 import { loggerInRequest } from '../middlewares/logger.js'
-//import cors from 'cors'
 import { apiRouter } from '../routers/apiRouter.js'
 import { metodosPersonalizados } from '../middlewares/respuestasMejoradas.js'
 import { passportInitialize } from '../middlewares/authentication.js'
@@ -23,23 +22,11 @@ export const app = express()
 //    next();
 //});
 
-import { fileURLToPath } from 'url';
-
-
-const __filename = fileURLToPath(import.meta.url);
-
-
-const __dirname = path.dirname(__filename);
-
 
 console.log(path.join('public', 'build', 'index.html'));
 console.log('locura locura')
 app.use(express.static(path.join('public', 'build')));
 
-//// Configura la ruta comodín para servir index.html
-//app.get('*', (req, res) => {
-//    res.sendFile(path.join(__dirname, 'public', 'build', 'index.html'));
-//});
 app.use(passportInitialize)
 
 app.use(metodosPersonalizados)
