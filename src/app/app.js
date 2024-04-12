@@ -32,9 +32,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 
-console.log(path.join(__dirname, 'public', 'build', 'index.html'));
+console.log(path.join('public', 'build', 'index.html'));
 console.log('locura locura')
-app.use(express.static(path.join(__dirname, 'public', 'build')));
+app.use(express.static(path.join('public', 'build')));
 
 //// Configura la ruta comodín para servir index.html
 //app.get('*', (req, res) => {
