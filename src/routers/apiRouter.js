@@ -8,7 +8,7 @@ import { carritoRouter } from './carritoRouter.js'
 import { productsRouter } from './productsRouter.js'
 import { chatRouter } from './chatRouter.js'
 import { documentationRouter } from './documentationAPI.js'
-import { paymentsRouter } from './paymentRouter.js'
+//import { paymentsRouter } from './paymentRouter.js'
 
 export const apiRouter = Router()
 
@@ -21,7 +21,7 @@ apiRouter.use('/session', sessionRouter)
 apiRouter.use('/products', productsRouter)
 apiRouter.use('/chat', chatRouter)
 apiRouter.use('/carts', carritoRouter)
-apiRouter.use('/payments', paymentsRouter)
+//apiRouter.use('/payments', paymentsRouter)
 
 // MIDDLEWARES
 

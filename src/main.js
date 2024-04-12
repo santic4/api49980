@@ -10,5 +10,5 @@ await mongoose.connect(MONGODB)
 logger.info('Conectado a DB MONGO')
 // console.log(cpus())
 
-app.listen(8085, () => { logger.info(`escuchando en puerto ${8085}`) })
+app.listen(PORT, () => { logger.info(`escuchando en puerto ${PORT}`) })
 
